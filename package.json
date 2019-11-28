@@ -1,14 +1,14 @@
 {
-  "name": "booking-scraper",
+  "name": "job-finder",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "krolik",
+  "license": "",
   "dependencies": {
-    "puppeteer": "^1.3.0"
+    "puppeteer": "^2.0.0"
   }
 }
