@@ -1,8 +1,8 @@
 const puppeteer = require("puppeteer");
 
-const pracujURL = "https://www.pracuj.pl/praca/junior%20frontend;kw/gdansk;wp";
-const justjoinURL = "https://justjoin.it/trojmiasto/javascript/junior";
-const noflURL =
+let pracujURL = "https://www.pracuj.pl/praca/junior%20frontend;kw/gdansk;wp";
+let justjoinURL = "https://justjoin.it/trojmiasto/javascript/junior";
+let noflURL =
   "https://nofluffjobs.com/jobs/gdansk/frontend?criteria=city%3Dgdansk%20category%3Dfrontend%20seniority%3Djunior";
 
 (async () => {
@@ -26,6 +26,7 @@ const noflURL =
     });
     return jobs;
   });
+  
   console.dir(pracujData);
 })();
 
@@ -58,14 +59,18 @@ const noflURL =
   const page = await browser.newPage();
   await page.goto(noflURL, { waitUntil: "networkidle2" });
   await page.waitForSelector("a.posting-list-item.posting-list-item--frontend");
-    let noflData = await page.evaluate(() => {
+  let noflData = await page.evaluate(() => {
     let jobs = [];
-    let list = Array.from(document.querySelectorAll('a.posting-list-item.posting-list-item--frontend'));
+    let list = Array.from(
+      document.querySelectorAll(
+        "a.posting-list-item.posting-list-item--frontend"
+      )
+    );
     list.map(element => {
       let jobsJson = {};
       try {
-        jobsJson.name = element.textContent
-        jobsJson.link = element.href
+        jobsJson.name = element.textContent;
+        jobsJson.link = element.href;
       } catch (exception) {}
       jobs.push(jobsJson);
     });
