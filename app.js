@@ -58,12 +58,12 @@ let noflURL =
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   await page.goto(noflURL, { waitUntil: "networkidle2" });
-  await page.waitForSelector("a.posting-list-item.posting-list-item--frontend");
+  await page.waitForSelector("a.posting-list-item");
   let noflData = await page.evaluate(() => {
     let jobs = [];
     let list = Array.from(
       document.querySelectorAll(
-        "a.posting-list-item.posting-list-item--frontend"
+        "a.posting-list-item"
       )
     );
     list.map(element => {
