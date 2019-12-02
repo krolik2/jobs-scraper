@@ -12,70 +12,57 @@ let noflURL =
   await page.waitForSelector("div.offer__info a.offer-details__title-link");
 
   let pracujData = await page.evaluate(() => {
-    let jobs = [];
+    let jobsArr = [];
     let list = Array.from(
       document.querySelectorAll("div.offer__info a.offer-details__title-link")
     );
     list.map(element => {
-      let jobsJson = {};
+      let jobs = {};
       try {
-        jobsJson.name = element.offsetParent.innerText.replace(/\n+/g, " ");
-        jobsJson.link = element.href;
+        jobs.name = element.offsetParent.innerText.replace(/\n+/g, " ");
+        jobs.link = element.href;
       } catch (exception) {}
-      jobs.push(jobsJson);
+      jobsArr.push(jobs);
     });
-    return jobs;
+    return jobsArr;
   });
-  
-  console.dir(pracujData);
-})();
 
-(async () => {
-  const browser = await puppeteer.launch({ headless: true });
-  const page = await browser.newPage();
   await page.goto(justjoinURL, { waitUntil: "networkidle2" });
   await page.waitForSelector("a.item");
 
   let justjoinData = await page.evaluate(() => {
-    let jobs = [];
+    let jobsArr = [];
     let list = Array.from(document.querySelectorAll("a.item"));
     let filteredList = list.filter(el => el.textContent.includes("Gdańsk"));
     filteredList.map(element => {
-      let jobsJson = {};
+      let jobs = {};
       try {
-        jobsJson.name = element.innerText.replace(/\n/g, " ");
-        jobsJson.link = element.href;
+        jobs.name = element.innerText.replace(/\n/g, " ");
+        jobs.link = element.href;
       } catch (exception) {}
-      jobs.push(jobsJson);
+      jobsArr.push(jobs);
     });
-    return jobs;
+    return jobsArr;
   });
 
-  console.dir(justjoinData);
-})();
-
-(async () => {
-  const browser = await puppeteer.launch({ headless: true });
-  const page = await browser.newPage();
   await page.goto(noflURL, { waitUntil: "networkidle2" });
   await page.waitForSelector("a.posting-list-item");
+
   let noflData = await page.evaluate(() => {
-    let jobs = [];
-    let list = Array.from(
-      document.querySelectorAll(
-        "a.posting-list-item"
-      )
-    );
+    let jobsArr = [];
+    let list = Array.from(document.querySelectorAll("a.posting-list-item"));
     list.map(element => {
-      let jobsJson = {};
+      let jobs = {};
       try {
-        jobsJson.name = element.textContent;
-        jobsJson.link = element.href;
+        jobs.name = element.textContent;
+        jobs.link = element.href;
       } catch (exception) {}
-      jobs.push(jobsJson);
+      jobsArr.push(jobs);
     });
-    return jobs;
+    return jobsArr;
   });
 
-  console.dir(noflData);
+  console.log(pracujData, justjoinData, noflData);
+
+  await browser.close();
 })();
