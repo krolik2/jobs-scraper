@@ -1,5 +1,5 @@
 # jobs-scraper
-My first attempt on Node.js. Scraper app which gets all frontend junior job offers from 3 popular job listing sites. 
+My first attempt on Node.js. Scraper app which gets all frontend job offers from 3 popular job listing sites. 
 
 It's possible to find any job offers on following websites:
 - justjoin.it 
